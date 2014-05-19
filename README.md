@@ -1,4 +1,4 @@
 shmir_client
 ============
 
-Client for https://github.com/Nozdi/shmir
+Client for [shmir](https://github.com/Nozdi/shmir)
