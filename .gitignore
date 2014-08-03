@@ -54,3 +54,4 @@ docs/_build/
 
 .DS_Store
 now.zip
+results/*
