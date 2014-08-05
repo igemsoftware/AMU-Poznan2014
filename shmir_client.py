@@ -9,6 +9,7 @@ from utils import (
     checker,
     wait_until_task,
 )
+from os import remove
 
 
 # mfold
@@ -23,12 +24,13 @@ def mfold_result(task_id, zipname):
             for chunk in req.iter_content():
                 f.write(chunk)
         unzip(zipname)
+        remove(zipname)
         print("Done")
     except zipfile.BadZipfile:
         print("Error: {}".format(req.json()['error']))
 
 
-mfold = lambda sequence, zipname: (
+mfold = lambda sequence, zipname="now.zip": (
     wait_until_task(
         mfold_create, sequence, mfold_check,
         mfold_result, (zipname, )
@@ -59,4 +61,4 @@ if __name__ == '__main__':
         # shmir(args.shmir, "now.zip")
 
     if args.mfold:
-        mfold(args.mfold[0], "now.zip")
+        mfold(args.mfold[0])
