@@ -5,6 +5,7 @@
 import requests
 import time
 import zipfile
+import os
 from settings import METHODS
 
 
@@ -18,17 +19,15 @@ def get_json(method, data, key):
     return get_request(method, data).json()[key]
 
 
-def creator(method, data):
-    return get_json(method, data, "task_id")
+creator = lambda method, data: get_json(method, data, "task_id")
+checker = lambda method, data: get_json(method, data, "status")
 
 
-def checker(method, data):
-    return get_json(method, data, "status")
-
-
-def unzip(filename):
+def unzip(filename, path="."):
     with zipfile.ZipFile(filename) as zip_file:
-        zip_file.extractall(path=".")
+        if not os.path.exists(path):
+            os.makedirs(path)
+        zip_file.extractall(path=path)
 
 
 def change_ttw(x):
@@ -47,8 +46,9 @@ def wait_until_task(creator, create_data,
     counter = 0
 
     task_id = creator(create_data)
-    while checker(task_id) != "ok":
+    while checker(task_id) not in ["ok", "fail"]:
         time.sleep(ttw)
+        counter += 1
         ttw += change_ttw(counter)
 
     return getter(task_id, *get_data)
