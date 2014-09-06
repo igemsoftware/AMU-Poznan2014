@@ -3,13 +3,7 @@
     :synopsis: sets up all urls
 """
 
-DEBUG = True
-
-if DEBUG:
-    URL = "http://127.0.0.1:8090"
-else:
-    URL = "http://127.0.0.1:8080"
-
+URL = "http://127.0.0.1:8080"
 
 METHODS = {
     "mfold_create": URL + "/mfold/{}",

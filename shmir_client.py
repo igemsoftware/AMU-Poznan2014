@@ -48,7 +48,7 @@ def shmir_result(task_id):
     path = "./results/shmir/{}/".format(task_id)
     print("Results under: {}".format(path))
 
-    for no, (points, shmir, name, mfold_id) in enumerate(data):
+    for no, (points, shmir, name, mfold_id) in enumerate(data['result']):
         mfold_result(mfold_id, path=path)
         new_path = path + name
         rename(path + mfold_id, new_path)
