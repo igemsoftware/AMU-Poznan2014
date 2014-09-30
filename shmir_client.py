@@ -26,6 +26,7 @@ def mfold_result(task_id, zipname="now.zip", path="./results/mfold/"):
                 f.write(chunk)
         unzip(zipname, path)
         remove(zipname)
+        print("Results under: {}/".format(path + task_id))
     except zipfile.BadZipfile:
         print("Error: {}".format(req.json()['error']))
 
