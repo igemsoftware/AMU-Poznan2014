@@ -14,10 +14,6 @@ from os import remove, rename
 
 
 # mfold
-mfold_create = lambda sequence: creator("mfold_create", sequence)
-mfold_check = lambda task_id: checker("mfold_check", task_id)
-
-
 def mfold_result(task_id, zipname="now.zip", path="./results/mfold/"):
     req = get_request("mfold_result", task_id)
     try:
@@ -31,22 +27,20 @@ def mfold_result(task_id, zipname="now.zip", path="./results/mfold/"):
         print("Error: {}".format(req.json()['error']))
 
 
-mfold = lambda sequence: (
-    wait_until_task(
-        mfold_create, sequence, mfold_check, mfold_result,
+def mfold(sequence):
+    return wait_until_task(
+        lambda sequence: creator("mfold_create", sequence),
+        sequence,
+        lambda task_id: checker("mfold_check", task_id),
+        mfold_result
     )
-)
 
 
-# shmir
-shmir_create = lambda sequences: creator("shmir_create", sequences)
-shmir_check = lambda task_id: checker("shmir_check", task_id)
+# from_sirna
+def from_sirna_result(task_id):
+    data = get_json("from_sirna_result", task_id, 'data')
 
-
-def shmir_result(task_id):
-    data = get_json("shmir_result", task_id, 'data')
-
-    path = "./results/shmir/{}/".format(task_id)
+    path = "./results/sirna/{}/".format(task_id)
     print("Results under: {}".format(path))
 
     for no, (points, shmir, name, mfold_id) in enumerate(data['result']):
@@ -57,23 +51,32 @@ def shmir_result(task_id):
             no, name, points, new_path, shmir
         ))
 
-shmir = lambda sequences: (
-    wait_until_task(
-        shmir_create, sequences, shmir_check, shmir_result
+
+def from_sirna(sequences):
+    return wait_until_task(
+        lambda sequences: creator("from_sirna_create", sequences),
+        sequences,
+        lambda task_id: checker("from_sirna_check", task_id),
+        from_sirna_result
     )
-)
+
+
+def transcript_create(transcript_name, **kwargs):
+    return creator("transcript_create", transcript_create, {'params': kwargs})
+
 
 if __name__ == '__main__':
-
-    parser = argparse.ArgumentParser(description='sh-miR client')
-    parser.add_argument('--mfold', nargs=1, type=str, help='mfold')
-    parser.add_argument('--shmir', nargs='+', type=str, help='shmir')
+    mfold_help = "Mfold option to fold sequence via mfold"
+    from_sirna_help = "From sirna creates shmirs from sirna"
+    parser = argparse.ArgumentParser(description="sh-miR client")
+    parser.add_argument("--mfold", "-mf", nargs=1, type=str, help=mfold_help)
+    parser.add_argument("--from_sirna", "-fs", nargs="+", type=str, help=from_sirna_help)
 
     args = parser.parse_args()
-    if args.shmir and len(args.shmir) > 2:
+    if args.from_sirna and len(args.from_sirna) > 2:
         parser.error("sh-miR need 1 or 2 sequences")
-    elif args.shmir:
-        shmir(" ".join(args.shmir))
+    elif args.from_sirna:
+        from_sirna(" ".join(args.from_sirna))
 
     if args.mfold:
         mfold(args.mfold[0])

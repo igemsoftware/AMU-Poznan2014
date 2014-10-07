@@ -9,7 +9,12 @@ METHODS = {
     "mfold_create": URL + "/mfold/{}",
     "mfold_check": URL + "/mfold/status/{}",
     "mfold_result": URL + "/mfold/result/{}",
-    "shmir_create": URL + "/designer/{}",
-    "shmir_check": URL + "/designer/status/{}",
-    "shmir_result": URL + "/designer/result/{}",
+
+    "from_sirna_create": URL + "/from_sirna/{}",
+    "from_sirna_check": URL + "/from_sirna/status/{}",
+    "from_sirna_result": URL + "/from_sirna/result/{}",
+
+    "from_transcript_create": URL + "/from_transcript/{}",
+    "from_transcript_check": URL + "/from_transcript/status/{}",
+    "from_transcript_result": URL + "from_transcript/result/{}",
 }

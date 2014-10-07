@@ -9,18 +9,22 @@ import os
 from settings import METHODS
 
 
-def get_request(method, data):
-    req = requests.get(METHODS[method].format(data))
+def get_request(method, data, **kwargs):
+    req = requests.get(METHODS[method].format(data), **kwargs)
     if req.status_code == 200:
         return req
 
 
-def get_json(method, data, key):
-    return get_request(method, data).json()[key]
+def get_json(method, data, key, **kwargs):
+    return get_request(method, data, **kwargs).json()[key]
 
 
-creator = lambda method, data: get_json(method, data, "task_id")
-checker = lambda method, data: get_json(method, data, "status")
+def creator(method, data, **kwargs):
+    return get_json(method, data, "task_id", **kwargs)
+
+
+def checker(method, data):
+    return get_json(method, data, "status")
 
 
 def unzip(filename, path="."):
@@ -40,7 +44,7 @@ def change_ttw(x):
 
 def wait_until_task(creator, create_data,
                     checker,
-                    getter, get_data=()):
+                    getter, *args):
 
     ttw = 0.5
     counter = 0
@@ -51,4 +55,4 @@ def wait_until_task(creator, create_data,
         counter += 1
         ttw += change_ttw(counter)
 
-    return getter(task_id, *get_data)
+    return getter(task_id, *args)
