@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="ui header">
+    <i class="sign in icon"></i>
+    <div class="content">
+        login
+    </div>
+</h2>
+<form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    <div class="ui form">
+      <div class="field{% if form.username.errors %} error{% endif %}">
+        <label for="{{ form.username.auto_id }}">{{ form.username.label }}</label>
+        <div class="ui left labeled icon input">
+          <input type="text" placeholder="{{ form.username.label }}" name="{{ form.username.name }}">
+          <i class="user icon"></i>
+          <div class="ui corner label">
+            <i class="icon asterisk"></i>
+          </div>
+        </div>
+        {% if form.username.errors %}
+        <div class="ui red pointing above ui label">{{ form.username.errors }}</div>
+        {% endif %}
+      </div>
+      <div class="field{% if form.username.errors %} error{% endif %}">
+        <label for="{{ form.password.auto_id }}">{{ form.password.label }}</label>
+        <div class="ui left labeled icon input">
+          <input type="password" id="{{ form.password.auto_id }}" name="{{ form.password.name }}">
+          <i class="lock icon"></i>
+          <div class="ui corner label">
+            <i class="icon asterisk"></i>
+          </div>
+        </div>
+        {% if form.password.errors %}
+        <div class="ui red pointing above ui label">{{ form.password.errors }}</div>
+        {% endif %}
+      </div>
+      <input type="submit" class="ui button" value="Login">
+    </div>
+</form>
+{% endblock %}

@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 from accounts.models import UserProfile
 
+
 class CustomUserCreationForm(UserCreationForm):
 
     def __init__(self, *args, **kargs):
@@ -11,6 +12,7 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = UserProfile
         fields = ("email",)
+
 
 class CustomUserChangeForm(UserChangeForm):
 

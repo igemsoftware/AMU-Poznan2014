@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="ui header">
+    <i class="browser icon"></i>
+    <div class="content">
+        History
+        <div class="sub header">check your designing history</div>
+    </div>
+</h2>
+<div class="ui comments">
+  {% for object in object_list %}
+  <div class="comment">
+    <div class="content">
+      <div class="avatar">
+      {% if object.datetime_finish %}
+        <i class="big ok sign icon"></i>
+      {% else %}
+        <i class="big loading icon"></i>
+      {% endif %}
+      </div>
+      <div class="content">
+        <a class="author" href="{{ object.get_absolute_url }}">{{ object.transcript }}</a>
+        <div class="metadata">
+          <div class="date">Started: {{ object.datetime_start }}</div>
+          {% if object.datetime_finish %}<div class="date">Finished: {{ object.datetime_finish }}</div>{% endif %}
+
+        </div>
+        <div class="text">
+          Process id: {{ object.process_id }}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<div class="ui borderless pagination menu">
+kuwa
+    {% if object_list.has_previous %}
+    <a class="item" href="?page={{ object_list.previous_page_number }}">
+      <i class="left arrow icon"></i> Previous
+    </a>
+    {% endif %}
+    <span class="active">
+      Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+    </span>
+
+    {% if object_list.has_next %}
+      <a class="item" href="?page={{ object_list.next_page_number }}">
+        <i class="right arrow icon"></i> Next
+      </a>
+    {% endif %}
+</div>
+{% endblock %}

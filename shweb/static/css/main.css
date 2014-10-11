@@ -1,0 +1,49 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+body{
+	font-family: 'Helvetica';
+	margin-bottom: 60px;
+    background: url(../img/background.png) white center top repeat-y fixed;
+}
+
+.navwrapper {
+    margin-left: 15%;
+    margin-right: 13%;
+}
+
+#logo {
+    margin-left: 3%;
+    margin-top: 2px;
+    width: 121px;
+    height: 40px;
+}
+
+#wrapper {
+    padding: 15px;
+    margin-top: 30px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 15px;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+.ui .message{
+	padding-top: 30px !important;
+	padding-bottom:  50px !important;
+}
+
+.ui .button{
+	text-transform: capitalize;
+}
+
+.ui .comment a{
+    font-weight: bold;
+}
