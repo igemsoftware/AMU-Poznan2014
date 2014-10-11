@@ -11,7 +11,7 @@ class CustomUserManager(BaseUserManager):
                      is_staff, is_superuser, **extra_fields):
         now = timezone.now()
         if not email:
-            raise ValueError(u'Musisz podać adres email')
+            raise ValueError('You have to provide your email address')
         email = self.normalize_email(email)
         user = self.model(email=email,
                           is_staff=is_staff, is_active=True,
@@ -45,8 +45,8 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     class Meta:
-        verbose_name = u"Użytkownik"
-        verbose_name_plural = u"Użytkownicy"
+        verbose_name = "user"
+        verbose_name_plural = "users"
 
     def get_full_name(self):
         return "{} {}".format(self.first_name, self.last_name)
