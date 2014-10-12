@@ -16,5 +16,5 @@ METHODS = {
 
     "from_transcript_create": URL + "/from_transcript/{}",
     "from_transcript_check": URL + "/from_transcript/status/{}",
-    "from_transcript_result": URL + "from_transcript/result/{}",
+    "from_transcript_result": URL + "/from_transcript/result/{}",
 }

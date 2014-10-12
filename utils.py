@@ -15,16 +15,18 @@ def get_request(method, data, **kwargs):
         return req
 
 
-def get_json(method, data, key, **kwargs):
-    return get_request(method, data, **kwargs).json()[key]
+def get_json(method, data, **kwargs):
+    return get_request(method, data, **kwargs).json()
 
 
 def creator(method, data, **kwargs):
-    return get_json(method, data, "task_id", **kwargs)
+    return get_json(method, data, **kwargs)["task_id"]
 
 
-def checker(method, data):
-    return get_json(method, data, "status")
+def checker(method, data, only_status=True):
+    if only_status:
+        return get_json(method, data)['status']
+    return get_json(method, data)
 
 
 def unzip(filename, path="."):
@@ -42,17 +44,21 @@ def change_ttw(x):
     return 1.2 ** (x - 15)
 
 
-def wait_until_task(creator, create_data,
-                    checker,
-                    getter, *args):
+def wait_until_task(task_id, checker, getter, *args):
 
     ttw = 0.5
     counter = 0
 
-    task_id = creator(create_data)
-    while checker(task_id) not in ["ok", "fail"]:
+    status = checker(task_id)
+    while status not in ["ok", "fail", "error"]:
+        status = checker(task_id)
         time.sleep(ttw)
         counter += 1
         ttw += change_ttw(counter)
+
+    if status in ["fail", "error"]:
+        data = checker(task_id, only_status=False)
+        print "{}: {}".format(data['status'], data['data']['result'])
+        return
 
     return getter(task_id, *args)
