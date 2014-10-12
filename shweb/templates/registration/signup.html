@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2 class="ui header">
+    <i class="user icon"></i>
+    <div class="content">
+        sign up
+        <div class="sub header">sign up to save you designing history to your personal account</div>
+    </div>
+</h2>
+
+<div class="ui form">
+  <form action="{% url 'accounts:signup' %}" method="POST">
+    {% csrf_token %}
+    <div class="field{% if form.email.errors %} error{% endif %}">
+      <label for="{{ form.email.auto_id }}">{{ form.email.label }}</label>
+      <div class="ui left labeled icon input">
+        <input id="{{ form.email.auto_id }}" type="email" name="{{ form.email.name }}">
+        <i class="mail icon"></i>
+        <div class="ui corner label">
+          <i class="icon asterisk"></i>
+        </div>
+        {% if form.email.errors %}
+          <div class="ui red pointing above ui label">{{ form.email.errors }}</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="two fields">
+      <div class="field{% if form.password1.errors %} error{% endif %}">
+        <label for="{{ form.password1.auto_id }}">{{ form.password1.label }}</label>
+        <div class="ui left labeled icon input">
+          <input id="{{ form.password1.auto_id }}" type="password" name="{{ form.password1.name }}">
+          <i class="lock icon"></i>
+          <div class="ui corner label">
+            <i class="icon asterisk"></i>
+          </div>
+          {% if form.password1.errors %}
+            <div class="ui red pointing above ui label">{{ form.password1.errors }}</div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="field{% if form.password2.errors %} error{% endif %}">
+        <label for="{{ form.password2.auto_id }}">{{ form.password2.label }}</label>
+        <div class="ui left labeled icon input">
+          <input id="{{ form.password2.auto_id }}" type="password" name="{{ form.password2.name }}">
+          <i class="lock icon"></i>
+          <div class="ui corner label">
+            <i class="icon asterisk"></i>
+          </div>
+        {% if form.password2.errors %}
+          <div class="ui red pointing above ui label">{{ form.password2.errors }}</div>
+        {% endif %}
+        </div>
+      </div>
+    </div>
+    <input type="submit" value="sign up" class="ui button">
+  </form>
+</div>
+{% endblock %}

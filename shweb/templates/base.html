@@ -27,20 +27,23 @@
           <a class="item">
             <i class="help icon"></i> help
           </a>
-          <a class="item">
+          {% url 'about' as about %}
+          <a class="item{% if about in request.path %} active{% endif %}" href="{{ about }}">
             <i class="users icon"></i> about us
           </a>
           <div class="right menu">
               <div class="ui icon input">
               {% if user.is_authenticated %}
-                  <a class="item" href="{% url 'designer:history' %}">
+                  {% url 'designer:history' as designer_history %}
+                  <a class="item{% if designer_history in request.path %} active{% endif %}" href="{{ designer_history }}">
                     <i class="browser icon"></i> history
                   </a>
                   <a class="item" href="{% url 'logout' %}">
                     <i class="sign out icon"></i> log out
                   </a>
               {% else %}
-                  <a class="item">
+                  {% url 'accounts:signup' as accounts_signup %}
+                  <a class="item{% if accounts_signup in request.path %} active{% endif %}" href="{{ accounts_signup }}">
                     <i class="user icon"></i> sign up
                   </a>
                   {% url 'login' as login_url %}
@@ -50,14 +53,25 @@
               {% endif %}
               </div>
           </div>
-        }
-    </div>
+        </div>
     </div>
     <div class="ui page grid">
     <div class="ui page grid" id="wrapper">
         <div class="ui grid">
             <div class="row">
                 <div class="column">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="ui message {{ message.tags }}">
+                      <div class="header">
+                        {{ message.tags }}
+                      </div>
+                      <div class="content">
+                        {{ message }}
+                      </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
                     {% block content %}
                     {% endblock %}
                 </div>

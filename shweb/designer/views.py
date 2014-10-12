@@ -10,10 +10,15 @@ from designer.utils import shmir_post_task
 class DesignProcessHistoryView(generic.ListView):
     template_name = 'designer/history.html'
     model = DesignProcessModel
-    paginate_by = 3
+    paginate_by = 30
 
     def get_queryset(self):
-        return self.model.objects.filter(user=self.request.user).order_by('-datetime_start')
+        return self.model.objects.filter(
+            user=self.request.user).order_by('-datetime_start')
+
+    # def get_context_data(self, *args, **kwargs):
+    #     con = super(DesignProcessHistoryView, self).get_context_data()
+    #     import ipdb; ipdb.set_trace()  # HARDCODED
 
 
 class DesignProcessDetailView(generic.DetailView):

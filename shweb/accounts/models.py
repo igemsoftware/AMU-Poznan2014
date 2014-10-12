@@ -35,8 +35,9 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
     is_staff = models.BooleanField('staff status', default=False)
-    is_active = models.BooleanField('active', default=True)
+    is_active = models.BooleanField('active', default=False)
     date_joined = models.DateTimeField('date joined', default=timezone.now)
+    confirmation_code = models.CharField(max_length=50)
 
     objects = CustomUserManager()
 

@@ -11,4 +11,7 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout',
         {'next_page': '/'}, name="logout"),
     url(r'^', include('designer.urls', namespace="designer")),
+    url(r'^accounts/', include('accounts.urls', namespace="accounts")),
+    url(r'^about/$', generic.TemplateView.as_view(template_name="about.html"),
+        name="about"),
 )
