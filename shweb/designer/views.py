@@ -1,10 +1,11 @@
 from django.views import generic
 from django.shortcuts import redirect
+import uuid
 
 from django.http import Http404
-from designer.models import DesignProcessModel
+from designer.models import DesignProcessModel, STIMULATORS_CHOICE
 from designer.forms import DesignProcessForm
-from designer.utils import shmir_post_task
+from designer.utils import ShmirDesigner as shmir
 
 
 class DesignProcessHistoryView(generic.ListView):
@@ -15,10 +16,6 @@ class DesignProcessHistoryView(generic.ListView):
     def get_queryset(self):
         return self.model.objects.filter(
             user=self.request.user).order_by('-datetime_start')
-
-    # def get_context_data(self, *args, **kwargs):
-    #     con = super(DesignProcessHistoryView, self).get_context_data()
-    #     import ipdb; ipdb.set_trace()  # HARDCODED
 
 
 class DesignProcessDetailView(generic.DetailView):
@@ -32,6 +29,7 @@ class DesignProcessDetailView(generic.DetailView):
         except DesignProcessModel.DoesNotExist:
             raise Http404()
 
+        process.stymulators = dict(STIMULATORS_CHOICE)[process.stymulators]
         return process
 
 
@@ -42,18 +40,13 @@ class DesignProcessCreateView(generic.CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(DesignProcessCreateView, self).get_context_data(**kwargs)
-        context['scaffold'] = (
-            'all',
-            'miR-30a',
-            'miR-155',
-            'miR-21',
-            'miR-122',
-            'miR-31',
-        )
+        context['mirna_name'] = shmir.structures()
         return context
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.process_id = shmir_post_task()
+        if self.request.user.id:
+            form.instance.user = self.request.user
+
+        form.instance.process_id = shmir.from_transcript_create(form.cleaned_data)
         obj = form.save()
         return redirect('designer:detail', process_id=obj.process_id)

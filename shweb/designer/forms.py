@@ -11,7 +11,7 @@ class DesignProcessForm(forms.ModelForm):
             'transcript',
             'min_gc',
             'max_gc',
-            'max_off_target',
-            'scaffold',
-            'stimulators',
+            'max_offtarget',
+            'mirna_name',
+            'stymulators',
         )

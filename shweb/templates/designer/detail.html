@@ -1,4 +1,99 @@
 {% extends "base.html" %}
 {% block content %}
-{{ object }}
+<h2 class="ui header">
+    {% if object.datetime_finish %}
+    <i class="large ok sign icon"></i>
+    {% else %}
+    <i class="large circle icon"></i>
+    {% endif %}
+    <div class="content">
+        {{ object.process_id }}
+        {% if object.user %}
+        <div class="sub header">Started by {{ object.user }}</div>
+        {% endif %}
+    </div>
+</h2>
+<div class="ui two column grid">
+  <div class="column">
+    <div class="header">
+      input:
+    </div>
+    <table class="ui celled table segment">
+      <tbody>
+        <tr>
+          <td>
+            Transcript
+          </td>
+          <td>
+            {{ object.transcript }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Minumum 'GC' content
+          </td>
+          <td>
+            {{ object.min_gc }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Maximum 'GC' content
+          </td>
+          <td>
+            {{ object.max_gc }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Maximum of off-target transcripts
+          </td>
+          <td>
+            {{ object.max_off_target }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Stimulatory sequences
+          </td>
+          <td>
+            {{ object.stimulators }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            miRNA scaffold
+          </td>
+          <td>
+            {{ object.scaffold }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Started
+          </td>
+          <td>
+            {{ object.datetime_start }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Finished
+          </td>
+          <td>
+            {% if object.datetime_finish %}{{ object.datetime_finish }}{% else %}in progress...{% endif %}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="column">
+    <div class="header">
+      results:
+    </div>
+    <div class="content">
+      nima
+    </div>
+  </div>
+</div>
 {% endblock %}

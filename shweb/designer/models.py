@@ -33,19 +33,19 @@ class DesignProcessModel(models.Model):
         default=60,
         help_text="You can choose between 0-100 (scroll)",
     )
-    max_off_target = models.IntegerField(
+    max_offtarget = models.IntegerField(
         "maximum of off-target transcripts",
         validators=[MinValueValidator(0), MaxValueValidator(1000)],
         default=10,
         help_text="You can choose between 0-1000 (scroll)"
     )
-    stimulators = models.CharField(
+    stymulators = models.CharField(
         "stimulatory sequences",
         max_length=10,
         choices=STIMULATORS_CHOICE,
         default=None,
     )
-    scaffold = models.CharField("miRNA scaffold", max_length=20)
+    mirna_name = models.CharField("miRNA scaffold", max_length=20)
     datetime_start = models.DateTimeField(auto_now_add=True)
     datetime_finish = models.DateTimeField(blank=True, null=True)
 

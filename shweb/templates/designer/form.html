@@ -29,43 +29,43 @@
                         </div>
                     </div>
                 </div>
-                <div class="field popups{% if form.max_off_target.errors %} error{% endif %}">
-                    <label for={{ form.max_off_target.auto_id }}>{{ form.max_off_target.label }}</label>
-                    {% render_field form.max_off_target data-content=form.max_off_target.help_text data-variation="inverted" readonly=in_progress%}
-                    {% if form.max_off_target.errors %}
-                    <div class="ui red pointing above ui label">{{ form.max_off_target.errors }}</div>
+                <div class="field popups{% if form.max_offtarget.errors %} error{% endif %}">
+                    <label for={{ form.max_offtarget.auto_id }}>{{ form.max_offtarget.label }}</label>
+                    {% render_field form.max_offtarget data-content=form.max_offtarget.help_text data-variation="inverted" readonly=in_progress%}
+                    {% if form.max_offtarget.errors %}
+                    <div class="ui red pointing above ui label">{{ form.max_offtarget.errors }}</div>
                     {% endif %}
                 </div>
-                <div class="field{% if form.scaffold.errors %} error{% endif %}">
-                    <label for={{ form.scaffold.auto_id }}>{{ form.scaffold.label }}</label>
+                <div class="field{% if form.mirna_name.errors %} error{% endif %}">
+                    <label for={{ form.mirna_name.auto_id }}>{{ form.mirna_name.label }}</label>
                     <div class="ui fluid selection dropdown">
-                        <input id="{{ form.scaffold.auto_id }}" type="hidden" name="{{ form.scaffold.name }}" readonly="{{ in_progress }}" >
+                        <input id="{{ form.mirna_name.auto_id }}" type="hidden" name="{{ form.mirna_name.name }}" readonly="{{ in_progress }}" >
                         <div class="default text">choose...</div>
                         <i class="dropdown icon"></i>
                         <div class="menu">
-                            {% for mir in scaffold %}
+                            {% for mir in mirna_name %}
                                 <div class="item" data-value="{{ mir }}">{{ mir }}</div>
                             {% endfor %}
                         </div>
                     </div>
-                    {% if form.scaffold.errors %}
-                    <div class="ui red pointing above ui label">{{ form.scaffold.errors }}</div>
+                    {% if form.mirna_name.errors %}
+                    <div class="ui red pointing above ui label">{{ form.mirna_name.errors }}</div>
                     {% endif %}
                 </div>
-                <div class="field{% if form.stimulators.errors %} error{% endif %}">
-                    <label for={{ form.stimulators.auto_id }}>{{ form.stimulators.label }}</label>
+                <div class="field{% if form.stymulators.errors %} error{% endif %}">
+                    <label for={{ form.stymulators.auto_id }}>{{ form.stymulators.label }}</label>
                     <div class="ui fluid selection dropdown">
-                        <input id="{{ form.stimulators.auto_id }}" type="hidden" name="{{ form.stimulators.name }}">
+                        <input id="{{ form.stymulators.auto_id }}" type="hidden" name="{{ form.stymulators.name }}">
                         <div class="default text">choose...</div>
                         <i class="dropdown icon"></i>
                         <div class="menu">
-                            {% for val, key in form.stimulators.field.choices %}
+                            {% for val, key in form.stymulators.field.choices %}
                             <div class="item" data-value="{{ val }}">{{ key }}</div>
                             {% endfor %}
                         </div>
                     </div>
-                    {% if form.stimulators.errors %}
-                    <div class="ui red pointing above ui label">{{ form.stimulators.errors }}</div>
+                    {% if form.stymulators.errors %}
+                    <div class="ui red pointing above ui label">{{ form.stymulators.errors }}</div>
                     {% endif %}
                 </div>
                 <input type="submit" value="submit" class="ui button">

@@ -106,4 +106,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 LOGIN_REDIRECT_URL = '/'
 
+SHMIR_API_ADDRESS = 'http://localhost:8080'
 
+# ********** EMAIL ************************
+DEFAULT_FROM_EMAIL = ''
+EMAIL_HOST = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
