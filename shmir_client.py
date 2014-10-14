@@ -94,8 +94,8 @@ def from_sirna(sequences):
         * gets result(s)
 
     Args:
-        sequences: siRNA sequence or sequences separated by space.
-            First strand is active, both are in 5-3 orientation
+        sequences: one siRNA strand (active) or two siRNA strands separated by space.
+            First strand is active, both are in 5-3 orientation.
 
     Returns:
         None
