@@ -132,7 +132,7 @@ def wait_until_task(task_id, checker, getter, *args):
         status = checker(task_id)
         time.sleep(ttw)
         counter += 1
-        ttw += change_ttw(counter)
+        ttw = change_ttw(counter)
 
     if status in ["fail", "error"]:
         data = checker(task_id, only_status=False)
