@@ -41,7 +41,7 @@ def mfold_result(task_id, zipname="now.zip", path="./results/mfold/", verbose=Tr
     os.remove(zipname)
 
     if verbose:
-        print("Result under: {}/".format(path + task_id))
+        print("Result under: {}/\n".format(path + task_id))
 
 
 def mfold(sequence):
@@ -78,7 +78,7 @@ def from_sirna_result(task_id):
     path = "./results/sirna/{}/".format(task_id)
 
     if data['result']:
-        print("Results under: {}".format(path))
+        print("Results under: {}\n".format(path))
     else:
         print("No sh-miR found")
 
@@ -87,7 +87,7 @@ def from_sirna_result(task_id):
         new_path = path + name
         os.rename(path + mfold_id, new_path)
         print("{}: name: {}, score: {}, pdf: {}\n   result: {}\n".format(
-            no, name, points, new_path, shmir
+            no + 1, name, points, new_path, shmir
         ))
 
 
@@ -129,7 +129,7 @@ def from_transcript_result(task_id):
     path = "./results/transcript/{}/".format(task_id)
 
     if data['result']:
-        print("Results under: {}".format(path))
+        print("Results under: {}\n".format(path))
     else:
         print("No sh-miR found")
 
@@ -145,7 +145,7 @@ def from_transcript_result(task_id):
         shutil.move(path + subtask_id + '/', new_path)
 
         print(result_string.format(
-            no,
+            no + 1,
             result['backbone'],
             result['score'],
             result['sequence'],
