@@ -76,13 +76,17 @@ def from_sirna_result(task_id):
     data = get_json("from_sirna_result", task_id)['data']
 
     path = "./results/sirna/{}/".format(task_id)
-    print("Results under: {}".format(path))
+
+    if data['result']:
+        print("Results under: {}".format(path))
+    else:
+        print("No sh-miR found")
 
     for no, (points, shmir, name, mfold_id) in enumerate(data['result']):
         mfold_result(mfold_id, path=path, verbose=False)
         new_path = path + name
         os.rename(path + mfold_id, new_path)
-        print("{}: name: {}, score: {}, pdf: {}\n   result: {}".format(
+        print("{}: name: {}, score: {}, pdf: {}\n   result: {}\n".format(
             no, name, points, new_path, shmir
         ))
 
@@ -123,9 +127,13 @@ def from_transcript_result(task_id):
     data = get_json("from_transcript_result", task_id)['data']
 
     path = "./results/transcript/{}/".format(task_id)
-    print("Results under: {}".format(path))
 
-    result_string = "{}: backbone: {}, score: {}, sequence: {}\n pdf: {}\n result: {}"
+    if data['result']:
+        print("Results under: {}".format(path))
+    else:
+        print("No sh-miR found")
+
+    result_string = "{}: backbone: {}, score: {}, sequence: {}\n pdf: {}\n result: {}\n"
     for no, result in enumerate(data['result']):
         mfold_result(result['pdf'], path=path, verbose=False)
         new_path = path + result['backbone']
@@ -134,7 +142,7 @@ def from_transcript_result(task_id):
             os.makedirs(new_path)
 
         subtask_id = result['pdf'].split("/")[-1]
-        shutil.move(path + subtask_id, new_path)
+        shutil.move(path + subtask_id + '/', new_path)
 
         print(result_string.format(
             no,
