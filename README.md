@@ -1,7 +1,7 @@
 shmir_client
 ============
 
-Client for [sh-miR Designer RESTfull API](https://github.com/Nozdi/shmir)
+Client for [sh-miR Designer RESTful API](https://github.com/Nozdi/shmir)
 
 Example usage:
 
