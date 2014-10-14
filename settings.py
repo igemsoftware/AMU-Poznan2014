@@ -1,6 +1,8 @@
 """
 .. module:: settings
-    :synopsis: sets up all urls
+    :synopsis: sets up urls.
+        Change variable URL to our server IP
+        if you do not like to download sh-miR designer project
 """
 
 URL = "http://127.0.0.1:8080"

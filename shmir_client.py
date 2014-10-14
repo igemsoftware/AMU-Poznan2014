@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+"""
+.. module:: shmir_client
+   :platform: Unix, Windows
+   :synopsis: Main module with client for sh-miR designer RESTful API
+
+"""
 
 import argparse
 import os
@@ -15,6 +21,18 @@ from utils import (
 
 # mfold
 def mfold_result(task_id, zipname="now.zip", path="./results/mfold/", verbose=True):
+    """Gets mfold result via task_id
+
+    Args:
+        task_id: Id of task which was given by RESTful API
+        zipname: Name of zip file in which client will save results.
+            After save this file is removed
+        path: Path where results should be stored
+        verbose: Bool which tells if function should print what she actualy does
+
+    Returns:
+        None
+    """
     req = get_request("mfold_result", task_id)
     with open(zipname, "wb") as f:
         for chunk in req.iter_content():
@@ -27,6 +45,17 @@ def mfold_result(task_id, zipname="now.zip", path="./results/mfold/", verbose=Tr
 
 
 def mfold(sequence):
+    """It does all workflow for mfold task
+        * creates task
+        * wait until it's done
+        * gets result(s)
+
+    Args:
+        sequence: Sequence which we would like to fold via mfold
+
+    Returns:
+        None
+    """
     return wait_until_task(
         creator("mfold_create", sequence),
         lambda task_id, **kwargs: checker("mfold_check", task_id, **kwargs),
@@ -36,6 +65,14 @@ def mfold(sequence):
 
 # from sirna
 def from_sirna_result(task_id):
+    """Gets sh-miR result created from siRNA via task_id
+
+    Args:
+        task_id: Id of task which was given by RESTful API
+
+    Returns:
+        None
+    """
     data = get_json("from_sirna_result", task_id)['data']
 
     path = "./results/sirna/{}/".format(task_id)
@@ -51,6 +88,18 @@ def from_sirna_result(task_id):
 
 
 def from_sirna(sequences):
+    """It does workflow for creating sh-miR from siRNA sequence(s)
+        * creates task
+        * wait until it's done
+        * gets result(s)
+
+    Args:
+        sequences: siRNA sequence or sequences separated by space.
+            First strand is active, both are in 5-3 orientation
+
+    Returns:
+        None
+    """
     return wait_until_task(
         creator("from_sirna_create", sequences),
         lambda task_id, **kwargs: checker("from_sirna_check", task_id, **kwargs),
@@ -60,6 +109,17 @@ def from_sirna(sequences):
 
 # from transcript
 def from_transcript_result(task_id):
+    """Gets sh-miR result created from transcript via task_id
+        * creates task
+        * wait until it's done
+        * gets result(s)
+
+    Args:
+        task_id: Id of task which was given by RESTful API
+
+    Returns:
+        None
+    """
     data = get_json("from_transcript_result", task_id)['data']
 
     path = "./results/transcript/{}/".format(task_id)
@@ -87,6 +147,25 @@ def from_transcript_result(task_id):
 
 
 def from_transcript(transcript, params):
+    """It does workflow for creating sh-miR from transcript
+
+    Args:
+        transcript: name of NCBI transcript
+        params: dict with optional arguments:
+            * min_gc -- Minimal "GC" content in strand
+                default: 40
+            * max_gc -- Maximal "GC" content in strand
+                default: 60
+            * max_offtarget -- Maximal offtarget in strand
+                default: 10
+            * mirna_name -- The name of miRNA backbone to use
+                default: 'all'
+            * stymulators -- one of "yes", "no", "no_difference"
+                default: 'no_difference'
+
+    Returns:
+        None
+    """
     return wait_until_task(
         creator("from_transcript_create", transcript, params=params),
         lambda task_id, **kwargs: checker("from_transcript_check", task_id, **kwargs),
