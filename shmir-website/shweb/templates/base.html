@@ -1,0 +1,91 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>sh-miR designer</title>
+    <meta name="description" content="">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="{% static 'semantic/css/semantic.css' %}">
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'semantic/javascript/semantic.js' %}"></script>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700,300&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="Shortcut icon" href="{% static 'img/shweb.ico' %}">
+</head>
+<body>
+    <div class="ui menu fixed">
+      <a href="{% url 'designer:create' %}">
+        <img id="logo" class="ui image left floated" src="{% static 'img/logo.png' %}">
+      </a>
+      <div class="navwrapper">
+          {% url 'designer:create' as design_url %}
+          <a class="item{% if design_url in request.path %} active{% endif %}" href="{{ design_url }}">
+            <i class="lab icon"></i> designer
+          </a>
+          <a class="item">
+            <i class="help icon"></i> help
+          </a>
+          {% url 'about' as about %}
+          <a class="item{% if about in request.path %} active{% endif %}" href="{{ about }}">
+            <i class="users icon"></i> about us
+          </a>
+          <div class="right menu">
+              <div class="ui icon input">
+              {% if user.is_authenticated %}
+                  {% url 'designer:history' as designer_history %}
+                  <a class="item{% if designer_history in request.path %} active{% endif %}" href="{{ designer_history }}">
+                    <i class="browser icon"></i> history
+                  </a>
+                  <a class="item" href="{% url 'logout' %}">
+                    <i class="sign out icon"></i> log out
+                  </a>
+              {% else %}
+                  {% url 'accounts:signup' as accounts_signup %}
+                  <a class="item{% if accounts_signup in request.path %} active{% endif %}" href="{{ accounts_signup }}">
+                    <i class="user icon"></i> sign up
+                  </a>
+                  {% url 'login' as login_url %}
+                  <a class="item{% if login_url in request.path %} active{% endif %}" href="{{ login_url }}">
+                    <i class="sign in icon"></i> log in
+                  </a>
+              {% endif %}
+              </div>
+          </div>
+        </div>
+    </div>
+    <div class="ui page grid">
+    <div class="ui page grid" id="wrapper">
+        <div class="ui grid">
+            <div class="row">
+                <div class="column">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="ui message {{ message.tags }}">
+                      <div class="header">
+                        {{ message.tags }}
+                      </div>
+                      <div class="content">
+                        {{ message }}
+                      </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="ui divider"></div>
+                    <span>sh-miR designer 2014</span>
+                                  <a href="https://github.com/igemsoftware/AMU-Poznan2014"><i class="ui large icon  github alternate"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    {% block bottom-scripts %}{% endblock %}
+</body>
+</html>

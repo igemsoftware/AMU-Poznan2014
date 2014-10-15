@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="ui header">
+    <i class="browser icon"></i>
+    <div class="content">
+        History
+        <div class="sub header">check your designing history</div>
+    </div>
+</h2>
+{% if object_list %}
+<table class="ui basic table">
+  <thead>
+    <tr><th>Status</th>
+    <th>Transcript</th>
+    <th>Process id</th>
+    <th>Started</th>
+    <th>Finished</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for object in object_list %}
+    <tr>
+      <td>{% if object.datetime_finish %}<i class="big icon sign ok"></i>{% else %}<i class="big icon loading"></i>{% endif %}</td>
+      <td>{{ object.transcript }}</td>
+      <td><a href="{{ object.get_absolute_url }}">{{ object.process_id }} <i class="icon external url"></i></a></td>
+      <td>{{ object.datetime_start }}</td>
+      <td>{% if object.datetime_finish %}{{ object.datetime_finish }}{% else %}in progess...{% endif %}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% if is_paginated %}
+<div class="ui pagination menu">
+  {% if page_obj.has_previous %}
+  <a class="item" href="?page={{ page_obj.previous_page_number }}">
+    <i class="left arrow icon"></i> Previous
+  </a>
+  {% endif %}
+  {% for no in page_obj.paginator.page_range %}
+    <a class="item{% if page_obj.number == no %} active{% endif %}" href="?page={{ no }}">{{ no }}</a>
+  {% endfor %}
+  {% if page_obj.has_next %}
+  <a class="item" href="?page={{ page_obj.next_page_number }}">
+    Next <i class="icon right arrow"></i>
+  </a>
+  {% endif %}
+</div>
+{% endif %}
+
+{% else %}
+<div class="ui message">
+  <div class="header">
+    Your designing history is empty!
+  </div>
+  <p>
+    <a href="{% url 'designer:create' %}">Design</a> new sh-miR
+  </p>
+</div>
+{% endif %}
+{% endblock %}
