@@ -3,6 +3,8 @@ AMU-Poznan2014
 
 AMU-Poznan repository for 2014 iGEM
 
+![Sh-miR designer](https://raw.githubusercontent.com/igemsoftware/AMU-Poznan2014/master/images/logoamu.png)
+
 # Sh-miR designer
 
 Sh-miR designer is a project we started during iGEM 2013. This year we would like to continue and expand functionality
