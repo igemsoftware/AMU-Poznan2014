@@ -22,12 +22,15 @@ accession number from NCBI database.
 
 ## API
 
-https://github.com/Nozdi/shmir
+- [README](shmir-api/README.md)
+- [Original repository](https://github.com/Nozdi/shmir)
 
 ## Website
 
-https://github.com/gitfred/shmir-website
+- [README](shmir-website/README.md)
+- [Original repository](https://github.com/gitfred/shmir-website)
 
 ## Client
 
-https://github.com/Nozdi/shmir_client
+- [README](shmir-client/README.md)
+- [Original repository](https://github.com/Nozdi/shmir_client)
