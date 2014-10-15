@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block content %}
 <h2 class="ui header">
     <i class="users icon"></i>
@@ -7,8 +8,9 @@
         <div class="sub header">about us</div>
     </div>
 </h2>
-<div class="ui fade reveal">
-  <img class="visible content" src="/images/demo/invention.jpg">
-  <img class="hidden content" src="/images/demo/title.png">
+<div class="ui segment">
+  <img class="ui right floated image" src="{% static 'img/us.jpg' %}">
+  <p>We are students of Computer Science Faculty at Adam Mickiewicz University. We are all into Python programming, that is why last year we have started PyCircle initiative which associate python programmer and enthusiasts in Poznań and promote this programming language among local programmers in general, not only from our University. During last year we managed to make few connections with institutions that use Python in business, what enables us to learn programming from professionalists. It is the main reason why we decided to write our project in mentioned language. Our areas of interest are – among others – algorithmics, network programming, bioinformatics, molecular medicine</p>
+  <p>On the picture, from left to right: <b>Mateusz Flieger, Michał Rostecki, Martyna Urbanek, Piotr Rogulski, Sylwester Brzęczkowski</b></p>
 </div>
 {% endblock %}
