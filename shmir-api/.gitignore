@@ -1,0 +1,17 @@
+*.log
+*.pot
+*.pyc
+*~
+.DS_Store
+*.so
+__pycache__
+*.egg
+*.egg-info
+.coverage
+htmlcov
+coverage.xml
+output.xml
+.ropeproject
+.vagrant
+build
+mfold_files
