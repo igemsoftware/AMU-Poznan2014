@@ -1,3 +1,10 @@
+"""
+.. module:: shweb.accounts
+   :platform: Unix, Windows
+   :synopsis: Module with views for accounts.
+
+"""
+
 from django.views import generic
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -12,6 +19,14 @@ from accounts.utils import code_generator
 
 
 def password_reset_done(request):
+    """View which users request after reset password
+
+    Args:
+        request: Django request object
+
+    Returns:
+        Django http redirect object to designer create view.
+    """
     messages.info(
         request,
         u"Check your email for further instructions")
@@ -19,6 +34,14 @@ def password_reset_done(request):
 
 
 def password_reset_complete(request):
+    """View which users request after successful password change
+
+    Args:
+        request: Django request object
+
+    Returns:
+        Django http redirect object to login view
+    """
     messages.info(
         request,
         u"Your password has been changed. You can log in now.")
@@ -26,11 +49,22 @@ def password_reset_complete(request):
 
 
 class RegistrationView(generic.FormView):
+    """Users registration view
+    """
     template_name = 'registration/signup.html'
     form_class = CustomUserCreationForm
     success_url = 'designer:create'
 
     def form_valid(self, form):
+        """Method trigered when form is valid. It assigns random confirmation
+        code to user object.self
+
+        Args:
+            form: valid registartion form object
+
+        Returns:
+            Django http redirect object to success url
+        """
         user = form.save()
         user.confirmation_code = code_generator()
         user.save()
@@ -53,9 +87,20 @@ class RegistrationView(generic.FormView):
 
 
 class AccountConfirmation(generic.View):
+    """Account confirmation view (with confirmation code).
+    """
     success_url = 'login'
 
     def get(self, *args, **kwargs):
+        """Method for handling Http GET request. It checks if the user
+        with given confirmation code exists and actives his/her account.
+
+        Returns:
+            Django http redirect object to success url
+
+        Raises:
+            Http404
+        """
         code = kwargs.get('code')
         if code is None:
             raise Http404()

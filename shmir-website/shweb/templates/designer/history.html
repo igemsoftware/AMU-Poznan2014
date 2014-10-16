@@ -21,10 +21,10 @@
   {% for object in object_list %}
     <tr>
       <td>{% if object.datetime_finish %}<i class="big icon sign ok"></i>{% else %}<i class="big icon loading"></i>{% endif %}</td>
-      <td>{{ object.transcript }}</td>
+      <td>{% if object.transcript %}{{ object.transcript }}{% else %}--{% endif %}</td>
       <td><a href="{{ object.get_absolute_url }}">{{ object.process_id }} <i class="icon external url"></i></a></td>
       <td>{{ object.datetime_start }}</td>
-      <td>{% if object.datetime_finish %}{{ object.datetime_finish }}{% else %}in progess...{% endif %}</td>
+      <td>{% if object.datetime_finish %}{{ object.datetime_finish }}{% else %}in progress...{% endif %}</td>
     </tr>
   {% endfor %}
   </tbody>

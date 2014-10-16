@@ -1,4 +1,9 @@
-# -*- coding: utf-8 -*-
+"""
+.. module:: shweb.accounts
+   :platform: Unix, Windows
+   :synopsis: Module with database user model and custom objects manager.
+
+"""
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
@@ -6,9 +11,24 @@ from django.contrib.auth.models import BaseUserManager
 
 
 class CustomUserManager(BaseUserManager):
+    """Custom objects manager for user model, which is adapted to use email
+       as a username field.
+    """
 
     def _create_user(self, email, password,
                      is_staff, is_superuser, **extra_fields):
+        """
+        Low level method for user creating.
+
+        Args:
+            email: User email (username)
+            password: User password
+            is_staff: Boolean which indicates whether user belongs to staff
+            is_superuser: Boolean which indicates whether user has admin privileges
+
+        Returs:
+            user object
+        """
         now = timezone.now()
         if not email:
             raise ValueError('You have to provide your email address')
@@ -22,15 +42,37 @@ class CustomUserManager(BaseUserManager):
         return user
 
     def create_user(self, email, password=None, **extra_fields):
+        """
+        High level method for user creating.
+
+        Args:
+            email: User email (username)
+            password: User password
+
+        Returs:
+            user object
+        """
         return self._create_user(email, password, False, False,
                                  **extra_fields)
 
     def create_superuser(self, email, password, **extra_fields):
+        """
+        High level method for user with admin privileges creating.
+
+        Args:
+            email: User email (username)
+            password: User password
+
+        Returs:
+            user object
+        """
         return self._create_user(email, password, True, True,
                                  **extra_fields)
 
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
+    """Custom user model with email set as username.
+    """
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
