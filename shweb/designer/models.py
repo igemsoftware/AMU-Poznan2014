@@ -14,7 +14,7 @@ from django.core.urlresolvers import reverse
 STIMULATORS_CHOICE = (
     ('yes', 'yes'),
     ('no', 'no'),
-    ('no_diference', 'no diference'),
+    ('no_difference', 'no difference'),
 )
 
 
@@ -97,7 +97,7 @@ class DesignProcessModel(models.Model):
         return self.process_id
 
     def get_absolute_url(self):
-        """It is responsible for generating detail url for design model.self
+        """It is responsible for generating detailed url for design model
 
         Returns:
             str object - url for detailed view

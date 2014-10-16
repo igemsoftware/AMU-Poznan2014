@@ -90,3 +90,9 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = "user"
         verbose_name_plural = "users"
+
+    def get_full_name(self):
+        return "{} {}".format(self.first_name, self.last_name)
+
+    def get_short_name(self):
+        return self.first_name

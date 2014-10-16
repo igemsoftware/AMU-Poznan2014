@@ -39,7 +39,7 @@
                 <div class="field{% if form.mirna_name.errors %} error{% endif %}">
                     <label for={{ form.mirna_name.auto_id }}>{{ form.mirna_name.label }}</label>
                     <div class="ui fluid selection dropdown">
-                        <input id="{{ form.mirna_name.auto_id }}" type="hidden" name="{{ form.mirna_name.name }}" readonly="{{ in_progress }}" >
+                        <input id="{{ form.mirna_name.auto_id }}" type="hidden" name="{{ form.mirna_name.name }}">
                         <div class="default text">choose...</div>
                         <i class="dropdown icon"></i>
                         <div class="menu">
