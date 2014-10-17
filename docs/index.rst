@@ -12,7 +12,6 @@ Contents:
    :maxdepth: 2
 
     shmir_client
-    utils
 
 Indices and tables
 ==================
