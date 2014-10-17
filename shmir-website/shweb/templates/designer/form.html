@@ -1,6 +1,6 @@
 {% load widget_tweaks %}
         <div class="ui form">
-            <form action="{% url 'designer:create' %}" method="POST">
+            <form action="" method="POST">
                 {% csrf_token %}
                 <div class="field popups{% if form.transcript.errors %} error{% endif %}">
                     <label for={{ form.transcript.auto_id }}>{{ form.transcript.label }}</label>
@@ -39,7 +39,7 @@
                 <div class="field{% if form.mirna_name.errors %} error{% endif %}">
                     <label for={{ form.mirna_name.auto_id }}>{{ form.mirna_name.label }}</label>
                     <div class="ui fluid selection dropdown">
-                        <input id="{{ form.mirna_name.auto_id }}" type="hidden" name="{{ form.mirna_name.name }}" readonly="{{ in_progress }}" >
+                        <input id="{{ form.mirna_name.auto_id }}" type="hidden" name="{{ form.mirna_name.name }}">
                         <div class="default text">choose...</div>
                         <i class="dropdown icon"></i>
                         <div class="menu">
@@ -67,6 +67,16 @@
                     {% if form.stymulators.errors %}
                     <div class="ui red pointing above ui label">{{ form.stymulators.errors }}</div>
                     {% endif %}
+                </div>
+                <div class="field popups{% if form.email_notify.errors %} error{% endif %}">
+                  <label for="{{ form.email_notify.auto_id }}">{{ form.email_notify.label }}</label>
+                  <div class="ui left labeled icon input">
+                    {% render_field form.email_notify data-content=form.email_notify.help_text data-variation="inverted" %}
+                    <i class="mail icon"></i>
+                    {% if form.email_notify.errors %}
+                      <div class="ui red pointing above ui label">{{ form.email_notify.errors }}</div>
+                    {% endif %}
+                  </div>
                 </div>
                 <input type="submit" value="submit" class="ui button">
             </form>

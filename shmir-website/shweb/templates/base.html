@@ -24,6 +24,10 @@
           <a class="item{% if design_url in request.path %} active{% endif %}" href="{{ design_url }}">
             <i class="lab icon"></i> designer
           </a>
+          {% url 'designer:create_sirna' as sirna_design_url %}
+          <a class="item{% if sirna_design_url in request.path %} active{% endif %}" href="{{ sirna_design_url }}">
+            <i class="lab icon"></i> from siRNA
+          </a>
           <a class="item">
             <i class="help icon"></i> help
           </a>
@@ -77,10 +81,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="column">
+                <div class="ui column center aligned">
                     <div class="ui divider"></div>
                     <span>sh-miR designer 2014</span>
-                                  <a href="https://github.com/igemsoftware/AMU-Poznan2014"><i class="ui large icon  github alternate"></i></a>
+                    <a href="https://github.com/igemsoftware/AMU-Poznan2014"><i class="ui large icon  github alternate"></i></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="ui column center aligned">
+                  <img style="width:50%;height:50%" src="{% static 'img/eu.png' %}">
                 </div>
             </div>
         </div>

@@ -1,3 +1,10 @@
+"""
+.. module:: shweb.accounts
+   :platform: Unix, Windows
+   :synopsis: Module with admin site settings for designing process
+
+"""
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
@@ -7,6 +14,8 @@ from accounts.forms import CustomUserChangeForm, CustomUserCreationForm
 
 
 class CustomUserAdmin(UserAdmin):
+    """It's responsible for proper users data presentation on admin site.
+    """
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name')}),
@@ -22,8 +31,8 @@ class CustomUserAdmin(UserAdmin):
     )
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
-    list_display = ('email', 'first_name', 'last_name', 'is_staff')
-    search_fields = ('email', 'first_name', 'last_name')
+    list_display = ('email', 'is_staff')
+    search_fields = ('email',)
     ordering = ('email',)
 
 admin.site.register(UserProfile, CustomUserAdmin)

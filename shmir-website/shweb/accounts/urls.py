@@ -1,3 +1,10 @@
+"""
+.. module:: shweb.accounts
+   :platform: Unix, Windows
+   :synopsis: Module with url patters for accounts application.
+
+"""
+
 from django.conf.urls import patterns, url
 
 from accounts.views import (

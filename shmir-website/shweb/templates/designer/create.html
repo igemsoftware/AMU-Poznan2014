@@ -15,15 +15,21 @@
 </h2>
 <div class="ui two column grid">
     <div class="column">
-        {% include 'designer/form.html' with form=form in_progress=in_progress%}
+        {% include form_template with form=form in_progress=in_progress%}
     </div>
     <div class="column">
         <div class="ui stacked segment">
-            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
-            </p>
-        </div>
-        <div class="ui active striped progress blue">
-            <div class="bar" style="width: 100%"></div>
+        {% if 'sirna' in form_template %}
+        <p>
+        Here you can desgin your sh-miR molecule providing siRNA sequence. Rememeber that you need to provide them in 5'-3' orientation and can provide one active strand or two strands from which the first one is active.
+        </p>
+        {% else %}
+        <p>Here you can design your sh-miR molecule using NCBI mRNA number (e.g. NM_001164782.1).</p>
+        <p> Please provide minimum and maximum GC content (in percentage) in the molecule which is predicted to be cut out from the sh-miR.</p>
+        <p> Moreover can choose if you need or can't have immunostimulatory sequence in your molecule and determine how many offtarget sequences is acceptable for you.</p>
+        <p>If you have any miRNA scaffold in your lab, you can also set the designer to design molecules on the base on your miRNA scaffold.
+        </p>
+        {% endif %}
         </div>
     </div>
 </div>

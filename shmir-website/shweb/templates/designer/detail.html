@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load shmir_tags %}
 {% block content %}
 <h2 class="ui header">
     {% if object.datetime_finish %}
@@ -13,13 +14,23 @@
         {% endif %}
     </div>
 </h2>
-<div class="ui two column grid">
   <div class="column">
-    <div class="header">
-      input:
-    </div>
+    <h2>Input</h2>
     <table class="ui celled table segment">
       <tbody>
+        {% if object.sirna %}
+        <tr>
+          <td>
+            siRNA
+          </td>
+          <td>
+            <div style="width:600px;overflow:auto;word-wrap:break-word;">
+              {{ object.sirna }}
+            </div>
+          </td>
+        </tr>
+        {% endif %}
+        {% if object.transcript %}
         <tr>
           <td>
             Transcript
@@ -28,46 +39,57 @@
             {{ object.transcript }}
           </td>
         </tr>
+        {% endif %}
+        {% if object.min_gc %}
         <tr>
           <td>
-            Minumum 'GC' content
+            Miniumum 'GC' content
           </td>
           <td>
-            {{ object.min_gc }}
+            {{ object.min_gc }}%
           </td>
         </tr>
+        {% endif %}
+        {% if object.max_gc %}
         <tr>
           <td>
             Maximum 'GC' content
           </td>
           <td>
-            {{ object.max_gc }}
+            {{ object.max_gc }}%
           </td>
         </tr>
+        {% endif %}
+        {% if object.max_offtarget %}
         <tr>
           <td>
             Maximum of off-target transcripts
           </td>
           <td>
-            {{ object.max_off_target }}
+            {{ object.max_offtarget }}
           </td>
         </tr>
+        {% endif %}
+        {% if object.stymulators %}
         <tr>
           <td>
             Stimulatory sequences
           </td>
           <td>
-            {{ object.stimulators }}
+            {{ object.stymulators }}
           </td>
         </tr>
+        {% endif %}
+        {% if object.mirna_name %}
         <tr>
           <td>
             miRNA scaffold
           </td>
           <td>
-            {{ object.scaffold }}
+            {{ object.mirna_name }}
           </td>
         </tr>
+        {% endif %}
         <tr>
           <td>
             Started
@@ -87,13 +109,68 @@
       </tbody>
     </table>
   </div>
-  <div class="column">
-    <div class="header">
-      results:
-    </div>
+  <div class="column" style="margin-top:15px">
+    <h2>Results</h2>
     <div class="content">
-      nima
+    {% if object.results %}
+    {% for result in object.results.data.result %}
+    <table class="ui celled table segment">
+      <tbody>
+        <tr>
+          <td>
+            score
+          </td>
+          <td>
+            {{ result.score }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            backbone
+          </td>
+          <td>
+            {{ result.backbone }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            pdf
+          </td>
+          <td>
+            <a href="{% get_pdf_url result.pdf %}">download link <i class="icon external url"></i></a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            sequence
+          </td>
+          <td>
+            {{ result.sequence }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            sh-mir
+          </td>
+          <td>
+            <div style="width:600px;overflow:auto;word-wrap:break-word;">
+              {{ result.sh_mir }}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    {% endfor %}
+    {% else %}
+    <div class="ui message">
+      <div class="header">
+        The task is in progress.
+      </div>
+      <p>
+        wait...
+      </p>
+    </div>
+    {% endif %}
     </div>
   </div>
-</div>
 {% endblock %}
