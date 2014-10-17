@@ -1,3 +1,7 @@
+"""
+.. module:: shmir.designer.models
+    :synopsis: This module has all database functionality
+"""
 import re
 import json
 import os
@@ -34,7 +38,7 @@ Base = declarative_base()
 
 class Backbone(Base):
     """
-    pri-miRNA class
+    Backbone class with information about miRNA scaffolds
     """
     __tablename__ = 'backbone'
 
@@ -60,7 +64,15 @@ class Backbone(Base):
     regexp = Column(Unicode(1000))
 
     def template(self, siRNAstrand_1, siRNAstrand_2):
-        """Returns the template of DNA (sh-miR)"""
+        """Returns the template of DNA (sh-miR)
+
+        Args:
+            siRNAstrand_1: sequence of first strand
+            siRNAstrand_2: sequence of second strand
+
+        Returns:
+            Sequence of sh-miR molecule on the base of chosen miRNA scaffold
+        """
         return (self.flanks5_s + siRNAstrand_1 + self.loop_s +
                 siRNAstrand_2 + self.flanks3_s).upper()
 
@@ -85,6 +97,9 @@ class Backbone(Base):
 
     @classmethod
     def generate_regexp_all(cls):
+        """Function takes all objects from the database and creates
+            regular expressions for each.
+        """
         for row in db_session.query(cls).all():
             row.generate_regexp()
 
@@ -103,6 +118,12 @@ class Immuno(Base):
 
     @classmethod
     def check_is_in_sequence(cls, input_sequence):
+        """ Checks if input sequence conteins sequences from immuno database
+        Args:
+            input_sequence: RNA sequence of about 20nt length
+        Returns:
+            Bool if the input_sequence contains immunostimulatory motifs
+        """
         return bool(db_session.execute(
             "SELECT COUNT(*) FROM immuno WHERE :input_sequence LIKE "
             "'%'||sequence||'%';", {'input_sequence': input_sequence}
@@ -127,7 +148,7 @@ class InputData(Base):
 
 class Result(Base):
     """
-    sh-miR results
+    sh-miR results table
     """
     __tablename__ = 'result'
 
@@ -162,6 +183,12 @@ Base.metadata.create_all(engine)
 
 @event.listens_for(Backbone, 'before_insert')
 def generate_regexp_on_insert(mapper, connection, target):
+    """The function generates regular expression from insert sequence
+    Args:
+        mapper: sqlalchemy mapper
+        connection: sqlalchemy connection
+        target: sqlalchemy target
+    """
     target.generate_regexp()
 
 
@@ -175,6 +202,11 @@ def create_regexp(seq_list):
     UG... (weight 2): two first nucleotides
     UG...G (weight 3): two first and the last nucleotides
     UG...AG (weight 4): two first and two last nucleotides
+
+    Args:
+        seq_list: RNA sequence
+    Returns:
+        Json object with generated regexp
     """
 
     acids = '[UTGCA]'  # order is important: U should always be next to T

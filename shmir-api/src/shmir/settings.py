@@ -1,3 +1,8 @@
+"""
+.. module:: shmir.settings
+    :synopsis: module with settings and functions which helps getting configs
+"""
+
 import os
 from ConfigParser import (
     ConfigParser,
@@ -21,6 +26,7 @@ def get_config(section, option, default=None):
     Args:
         section(str): section of settings
         option(str): option of settings
+
     Returns:
         config or default value
     """
@@ -30,12 +36,17 @@ def get_config(section, option, default=None):
         return default
 
 
+def get_db_config(option):
+    return config.get('database', option)
+
+
 def get_int(section, option, default=None):
     """Function which gets settings
 
     Args:
         section(str): section of settings
         option(str): option of settings
+
     Returns:
         config(int) or default value
     """
@@ -51,6 +62,7 @@ def get_bool(section, option, default=None):
     Args:
         section(str): section of settings
         option(str): option of settings
+
     Returns:
         config(bool) or default value
     """
@@ -60,7 +72,6 @@ def get_bool(section, option, default=None):
         return default
 
 
-get_db_config = lambda option: get_config('database', option)
 # RabbitMQ will be default broker and result backend if they're not defined
 # get_celery_config = lambda option: get_config('celery', option) or 'amqp://'
 
@@ -69,11 +80,14 @@ DEBUG = True
 # SQLAlchemy engine
 
 CONN_STR = "postgresql+psycopg2://{user}:{password}@{host}:{port}/{dbname}"
-FCONN = CONN_STR.format(
-    dbname=get_db_config('name'), user=get_db_config('user'),
-    password=get_db_config('password'), host=get_db_config('host'),
-    port=get_db_config('port')
-)
+try:
+    FCONN = CONN_STR.format(
+        dbname=get_db_config('name'), user=get_db_config('user'),
+        password=get_db_config('password'), host=get_db_config('host'),
+        port=get_db_config('port', default='5432')
+    )
+except Error:
+    FCONN = 'sqlite:///:memory:'
 
 # Celery
 # CELERY_BROKER = get_celery_config('broker')

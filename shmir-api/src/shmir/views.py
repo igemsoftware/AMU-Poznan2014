@@ -1,5 +1,5 @@
 """
-.. module:: views
+.. module:: shmir.views
     :synopsis: module to handle all urls of RESTful
 """
 
@@ -194,8 +194,10 @@ def transcript_task_result(task_id):
 @cache.memoize()
 def transcript_handler(transcript_name):
     """Handler to create sh-miR from transcript
+
     Args:
         transcript_name: name of transcript
+
     Returns:
         Id of task
     """
@@ -221,6 +223,7 @@ def transcript_handler(transcript_name):
 @cache.memoize()
 def get_structures():
     """Handler to list all possible backbones
+
     Returns:
         Json object with names of backbones list
     """
