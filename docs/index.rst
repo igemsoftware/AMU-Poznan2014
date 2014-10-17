@@ -9,9 +9,7 @@ Welcome to shmir-client's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 4
-
-   shmir_client
+   :maxdepth: 2
 
 Indices and tables
 ==================
