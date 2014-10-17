@@ -1,6 +1,6 @@
 # shmir-website #
 [![GNU License](http://img.shields.io/badge/license-GNU-blue.svg)](http://www.gnu.org/licenses/gpl.html)
-[![Documentation Status](https://readthedocs.org/projects/shmir-designer/badge/?version=latest)](https://readthedocs.org/projects/shmir-designer/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/shmir-designer/badge/?version=latest)](http://shmir-designer.readthedocs.org/en/latest/)
 
 Web client for [sh-miR Designer RESTful API](https://github.com/igemsoftware/AMU-Poznan2014/tree/master/shmir-api) written in Django.
 
