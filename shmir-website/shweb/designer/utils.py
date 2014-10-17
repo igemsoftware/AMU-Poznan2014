@@ -29,7 +29,7 @@ class ShmirDesigner(object):
         request_url = "%s/%s" % (cls.server_url, url.strip('/'))
 
         for arg in args:
-            request_url += '/%s' % arg
+            request_url += '/%s' % urllib.quote(arg)
 
         request_url += '?' + urllib.urlencode(kwargs) if kwargs else ''
         response = requests.get(request_url)
@@ -109,7 +109,8 @@ class ShmirDesigner(object):
         Returs:
             task_id from API
         """
-        response = cls._process('from_sirna', data)
+        sirna = data.pop('sirna')
+        response = cls._process('from_sirna', sirna, **data)
         return response.get('task_id')
 
     @classmethod
