@@ -39,3 +39,14 @@ accession number from NCBI database.
 * [Original repository](https://github.com/Nozdi/shmir_client)
 
 Enjoy! :)
+
+# Using this repository
+
+This repository has subtrees of the original repositories. To work with this repo and use subtree stuff, it would be the
+best to add following remotes:
+
+```
+git remote add shmir git@github.com:Nozdi/shmir.git
+git remote add shmir_client git@github.com:Nozdi/shmir_client.git
+git remote add shmir_website git@github.com:gitfred/shmir-website.git
+```
