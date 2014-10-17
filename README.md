@@ -1,5 +1,6 @@
-shmir_client
-============
+# shmir_client #
+[![GNU License](http://img.shields.io/badge/license-GNU-blue.svg)](http://www.gnu.org/licenses/gpl.html)
+[![Documentation Status](https://readthedocs.org/projects/shmir-client/badge/?version=latest)](https://readthedocs.org/projects/shmir-client/?badge=latest)
 
 Client for [sh-miR Designer RESTful API](https://github.com/Nozdi/shmir)
 
