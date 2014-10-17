@@ -1,1 +1,2 @@
 requests
+Sphinx==1.2.3
